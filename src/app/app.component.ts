@@ -63,13 +63,16 @@ export class MyApp {
 
     /**
      * Opens a given directory and lists all images in the selected directory.
-     */
-    openDir() {
+	 */
+ 	openDirPictures(){this.openDir(SUPPORTED_EXTENSIONS)}
+  	openDirJSON(){this.openDir(['.json'])}
+
+    openDir(types : string[]) {
         console.log(`Opening directory`);
         this.fileProvider.showOpenDialog()
             .subscribe((value) => {
                 this.fileProvider.selectedFolder = value;
-                this.fileProvider.listFiles(value, SUPPORTED_EXTENSIONS)
+                this.fileProvider.listFiles(value, types)
                     .subscribe((files) => {
                         if (files.length === 0) {
                             let toast = this.toastCtrl.create({
